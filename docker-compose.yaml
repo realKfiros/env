@@ -1,0 +1,27 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web
+    volumes:
+      - ./projects/:/var/www/html
+    ports:
+      - "80:80"
+    environment:
+      COMPOSER_HOME: "/root/.composer"
+  mysql:
+    container_name: db
+    image: mysql:8.0
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345678
+      MYSQL_DATABASE: lms
+      MYSQL_USER: lms
+      MYSQL_PASSWORD: 12345678
+    ports:
+      - "3306:3306"
+
+volumes:
+  db_data:
