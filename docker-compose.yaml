@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: web
+    container_name: ${WEB_CONTAINER_NAME}
     volumes:
       - ./projects/:/var/www/html
     ports:
@@ -11,17 +11,14 @@ services:
     environment:
       COMPOSER_HOME: "/root/.composer"
   mysql:
-    container_name: db
+    container_name: ${DB_CONTAINER_NAME}
     image: mysql:8.0
     volumes:
       - ./mysql_data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: 12345678
-      MYSQL_DATABASE: lms
-      MYSQL_USER: lms
-      MYSQL_PASSWORD: 12345678
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - "3306:3306"
+      - "${DB_PORT}:${DB_PORT}"
 
 volumes:
   db_data:

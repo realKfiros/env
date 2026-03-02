@@ -1,2 +1,5 @@
 projects/*
 !projects/.gitkeep
+.env
+mysql_data
+.idea
