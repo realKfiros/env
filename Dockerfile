@@ -23,12 +23,5 @@ RUN curl -sS https://getcomposer.org/installer | php
 RUN mv composer.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer
 
-# Install Node.js (using NodeSource repository for latest LTS)
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
-RUN apt-get install -y nodejs
-
-# Install Playwright dependencies and browsers
-RUN npx -y playwright@1.55.1 install --with-deps
-
 RUN composer global require --dev "squizlabs/php_codesniffer=3.*"
 RUN composer global require --dev "mockery/mockery"
