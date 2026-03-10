@@ -45,4 +45,7 @@ docker exec -i "$CONTAINER_NAME" \
   mysql -v -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" "$DB_NAME" \
   < "$SQL_FILE"
 
+# ===== CLEAN UP =====
+docker exec -it "$CONTAINER_NAME" rm /tmp/"$BASENAME"
+
 echo "✅ Done!"
