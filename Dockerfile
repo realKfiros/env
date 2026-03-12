@@ -8,7 +8,9 @@ RUN apt-get update
 
 COPY --from=mlocati/php-extension-installer /usr/bin/install-php-extensions /usr/local/bin/
 
-RUN install-php-extensions imap gd mysqli zip exif sockets imap soap gmp gd opcache ldap
+RUN apt-get install -y libicu-dev
+
+RUN install-php-extensions imap gd mysqli zip exif sockets imap soap gmp gd opcache ldap intl
 
 RUN pecl install xdebug;
 
