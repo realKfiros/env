@@ -40,8 +40,12 @@ docker_mysql() {
 
 confirm() {
   local prompt="$1"
+  local ans
   read -r -p "$prompt [y/N]: " ans
-  [[ "${ans,,}" == "y" || "${ans,,}" == "yes" ]]
+  case "$ans" in
+    [yY]|[yY][eE][sS]) return 0 ;;
+    *) return 1 ;;
+  esac
 }
 
 # ---------------------------
@@ -55,7 +59,10 @@ docker ps --format '{{.Names}}' | grep -qx "$CONTAINER_NAME" \
 # ---------------------------
 # Fetch databases
 # ---------------------------
-mapfile -t DBS < <(docker_mysql "SHOW DATABASES;")
+DBS=()
+while IFS= read -r line; do
+  DBS+=("$line")
+done < <(docker_mysql "SHOW DATABASES;")
 
 SAFE_DBS=()
 for db in "${DBS[@]}"; do
